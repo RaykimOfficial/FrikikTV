@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIRIKIK TV | Discord İçinde Canlı TV</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FIRIKIK TV | Discord'da Canlı TV</title>
+
   <meta
     name="description"
-    content="FIRIKIK TV, Discord içinde canlı TV kanallarını Activity sistemi ile açmanı sağlayan pratik ve ücretsiz bir bottur."
-  />
+    content="FIRIKIK TV ile Discord'dan çıkmadan canlı TV kanallarını Activity olarak aç."
+  >
 
   <style>
     :root {
-      --bg: #07110b;
-      --bg-soft: #0d1c13;
-      --card: rgba(18, 34, 24, 0.82);
-      --card-2: rgba(15, 29, 20, 0.92);
-      --text: #ecfff3;
-      --muted: #a9c4b2;
+      --bg: #061009;
+      --bg2: #09170e;
+      --card: #0e1d13;
+      --card2: #122419;
+
       --green: #39d86d;
-      --green-2: #1fa84d;
-      --green-3: #12361f;
-      --border: rgba(95, 221, 141, 0.18);
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
-      --radius: 22px;
-      --radius-sm: 16px;
+      --green-dark: #1fa84d;
+      --green-light: #8bffb3;
+
+      --text: #f1fff5;
+      --muted: #a7beae;
+
+      --border: rgba(80, 230, 130, 0.16);
+
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
+
       --max: 1180px;
     }
 
@@ -37,961 +42,1866 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
       color: var(--text);
+
       background:
-        radial-gradient(circle at top left, rgba(57, 216, 109, 0.14), transparent 26%),
-        radial-gradient(circle at top right, rgba(57, 216, 109, 0.10), transparent 18%),
-        linear-gradient(180deg, #08120c 0%, #06100a 45%, #040a06 100%);
+        radial-gradient(
+          circle at 10% 0%,
+          rgba(57,216,109,.14),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(57,216,109,.08),
+          transparent 22%
+        ),
+        linear-gradient(
+          180deg,
+          #07110a,
+          #040a06
+        );
+
       min-height: 100vh;
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
     img {
-      display: block;
       max-width: 100%;
+      display: block;
     }
 
     .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
+      width: min(
+        var(--max),
+        calc(100% - 34px)
+      );
+
+      margin: auto;
     }
 
-    .topbar {
+    /* HEADER */
+
+    header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(6, 12, 8, 0.72);
-      border-bottom: 1px solid rgba(120, 255, 170, 0.08);
+      z-index: 100;
+
+      background: rgba(5, 12, 7, 0.76);
+
+      backdrop-filter: blur(16px);
+
+      border-bottom:
+        1px solid rgba(255,255,255,.05);
     }
 
-    .nav {
-      min-height: 78px;
+    .navbar {
+      min-height: 76px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+
+      gap: 20px;
     }
 
-    .brand {
+    .logo {
       display: flex;
       align-items: center;
-      gap: 14px;
-      font-weight: 800;
-      letter-spacing: 0.3px;
+
+      gap: 13px;
+
+      font-weight: 900;
     }
 
-    .brand-logo {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #46f07c, #179b44);
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+
       display: grid;
       place-items: center;
-      box-shadow: 0 10px 25px rgba(57, 216, 109, 0.26);
-      color: #041109;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--green-light),
+          var(--green-dark)
+        );
+
+      color: #021007;
+
       font-size: 24px;
-      font-weight: bold;
+
+      box-shadow:
+        0 10px 28px rgba(57,216,109,.22);
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
+    .logo-text strong {
+      display: block;
+      font-size: 17px;
     }
 
-    .brand-text strong {
-      font-size: 1.08rem;
-    }
+    .logo-text span {
+      display: block;
 
-    .brand-text span {
-      font-size: 0.85rem;
       color: var(--muted);
-      font-weight: 600;
+
+      font-size: 12px;
+
+      margin-top: 4px;
     }
 
-    .nav-links {
+    nav {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+
+      gap: 6px;
     }
 
-    .nav-links a {
-      color: var(--muted);
+    nav a {
       padding: 10px 14px;
+
+      color: var(--muted);
+
       border-radius: 999px;
-      transition: 0.2s ease;
-      font-weight: 600;
-      font-size: 0.95rem;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition: .2s;
     }
 
-    .nav-links a:hover {
-      background: rgba(57, 216, 109, 0.12);
-      color: #fff;
+    nav a:hover {
+      background:
+        rgba(57,216,109,.1);
+
+      color: white;
     }
+
+    /* HERO */
 
     .hero {
-      padding: 68px 0 36px;
+      padding:
+        80px 0
+        55px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
+
+      grid-template-columns:
+        1.05fr .95fr;
+
       align-items: center;
+
+      gap: 45px;
     }
 
-    .eyebrow {
+    .mini-badge {
       display: inline-flex;
+
       align-items: center;
-      gap: 10px;
-      background: rgba(57, 216, 109, 0.12);
-      color: #c9ffd8;
-      border: 1px solid rgba(57, 216, 109, 0.2);
-      padding: 10px 16px;
+
+      gap: 8px;
+
+      padding:
+        9px 14px;
+
       border-radius: 999px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      margin-bottom: 18px;
+
+      border:
+        1px solid
+        rgba(57,216,109,.22);
+
+      background:
+        rgba(57,216,109,.09);
+
+      color:
+        #caffda;
+
+      font-size:
+        14px;
+
+      font-weight:
+        800;
+
+      margin-bottom:
+        20px;
     }
 
-    .hero h1 {
-      font-size: clamp(2.4rem, 5vw, 4.2rem);
-      line-height: 1.02;
-      margin: 0 0 16px;
-      letter-spacing: -1px;
+    h1 {
+      margin: 0;
+
+      max-width:
+        760px;
+
+      font-size:
+        clamp(
+          2.7rem,
+          6vw,
+          5rem
+        );
+
+      line-height:
+        .98;
+
+      letter-spacing:
+        -2px;
+    }
+
+    .highlight {
+      color:
+        var(--green-light);
     }
 
     .hero p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.08rem;
-      line-height: 1.7;
-      max-width: 700px;
+      margin:
+        23px 0 0;
+
+      max-width:
+        690px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        18px;
+
+      line-height:
+        1.75;
     }
 
-    .hero-highlight {
-      color: #78ffab;
-    }
+    .buttons {
+      margin-top:
+        28px;
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        12px;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 1px solid transparent;
-      padding: 14px 20px;
-      border-radius: 16px;
-      font-weight: 700;
-      transition: 0.22s ease;
-      cursor: pointer;
+      padding:
+        14px 19px;
+
+      border-radius:
+        15px;
+
+      border:
+        1px solid
+        transparent;
+
+      font-weight:
+        800;
+
+      transition:
+        .2s;
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      gap:
+        8px;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--green), var(--green-2));
-      color: #041008;
-      box-shadow: 0 14px 28px rgba(57, 216, 109, 0.22);
+    .btn-green {
+      background:
+        linear-gradient(
+          135deg,
+          var(--green),
+          var(--green-dark)
+        );
+
+      color:
+        #021007;
+
+      box-shadow:
+        0 14px 30px
+        rgba(57,216,109,.2);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 32px rgba(57, 216, 109, 0.28);
+    .btn-green:hover {
+      transform:
+        translateY(-2px);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.03);
-      color: #ebfff1;
-      border-color: rgba(255, 255, 255, 0.08);
+    .btn-dark {
+      background:
+        rgba(255,255,255,.03);
+
+      border-color:
+        rgba(255,255,255,.09);
     }
 
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      background: rgba(57, 216, 109, 0.08);
-      border-color: rgba(57, 216, 109, 0.15);
+    .btn-dark:hover {
+      background:
+        rgba(57,216,109,.08);
     }
 
     .hero-card {
-      position: relative;
-      background: linear-gradient(180deg, rgba(20, 38, 26, 0.88), rgba(11, 20, 14, 0.94));
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      padding:
+        18px;
+
+      background:
+        rgba(16,32,21,.85);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        26px;
+
+      box-shadow:
+        var(--shadow);
     }
 
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(73, 255, 146, 0.12), transparent 28%);
-      pointer-events: none;
+    .hero-card img {
+      width:
+        100%;
+
+      border-radius:
+        18px;
     }
 
-    .hero-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 14px;
+    .hero-top {
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        10px;
+
+      margin-bottom:
+        14px;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(57, 216, 109, 0.11);
-      border: 1px solid rgba(57, 216, 109, 0.18);
-      color: #d4ffe2;
-      font-size: 0.86rem;
-      font-weight: 700;
+    .tag {
+      font-size:
+        12px;
+
+      color:
+        #d5ffe1;
+
+      padding:
+        8px 11px;
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(57,216,109,.1);
     }
 
-    .hero-preview {
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: #0c1510;
-    }
-
-    .hero-preview img {
-      width: 100%;
-      height: auto;
-    }
+    /* SECTIONS */
 
     section {
-      padding: 34px 0;
+      padding:
+        52px 0;
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      margin: 0 0 12px;
-      line-height: 1.1;
+      font-size:
+        clamp(
+          2rem,
+          4vw,
+          3rem
+        );
+
+      margin:
+        0 0 12px;
     }
 
-    .section-subtitle {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 760px;
+    .section-desc {
+      margin:
+        0;
+
+      max-width:
+        800px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        16px;
+
+      line-height:
+        1.75;
     }
 
-    .cards {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+    /* FEATURES */
+
+    .features {
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:
+        18px;
+
+      margin-top:
+        28px;
     }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
+    .feature {
+      padding:
+        23px;
+
+      background:
+        rgba(15,30,20,.78);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        21px;
     }
 
-    .card-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      background: rgba(57, 216, 109, 0.13);
-      color: #9bffc0;
-      font-size: 24px;
-      margin-bottom: 16px;
+    .feature-icon {
+      width:
+        52px;
+
+      height:
+        52px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      border-radius:
+        15px;
+
+      background:
+        rgba(57,216,109,.12);
+
+      font-size:
+        24px;
+
+      margin-bottom:
+        16px;
     }
 
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 1.15rem;
+    .feature h3 {
+      margin:
+        0 0 10px;
     }
 
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
+    .feature p {
+      margin:
+        0;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.7;
     }
+
+    /* STEPS */
 
     .steps {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:
+        18px;
+
+      margin-top:
+        28px;
     }
 
     .step {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      position: relative;
+      padding:
+        24px;
+
+      background:
+        rgba(15,30,20,.78);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        21px;
     }
 
-    .step-number {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #5cff92, #1fa84d);
-      color: #031008;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      margin-bottom: 16px;
+    .number {
+      width:
+        42px;
+
+      height:
+        42px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      border-radius:
+        13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--green-light),
+          var(--green-dark)
+        );
+
+      color:
+        #021007;
+
+      font-weight:
+        900;
+
+      margin-bottom:
+        15px;
     }
 
     .step h3 {
-      margin: 0 0 8px;
+      margin:
+        0 0 9px;
     }
 
     .step p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
+      margin:
+        0;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.7;
     }
 
-    .channels-wrap {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    /* CHANNELS */
+
+    .channels {
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:
+        17px;
+
+      margin-top:
+        28px;
     }
 
-    .channel-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-    }
+    .channel {
+      background:
+        rgba(15,30,20,.8);
 
-    .channel-top {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        20px;
+
+      padding:
+        22px;
     }
 
     .channel-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      font-size: 1.5rem;
-      background: rgba(57, 216, 109, 0.12);
-      color: #90ffba;
+      font-size:
+        30px;
+
+      margin-bottom:
+        14px;
     }
 
-    .channel-card h3 {
-      margin: 0 0 4px;
+    .channel h3 {
+      margin:
+        0 0 7px;
     }
 
-    .channel-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
+    .channel p {
+      margin:
+        0;
+
+      color:
+        var(--muted);
     }
 
-    .channel-list {
-      list-style: none;
-      padding: 0;
-      margin: 14px 0 0;
-      display: grid;
-      gap: 10px;
+    /* SECURITY */
+
+    .security {
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        18px;
+
+      margin-top:
+        28px;
     }
 
-    .channel-list li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #dfffe8;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 14px;
-      padding: 12px 14px;
+    .security-box {
+      padding:
+        25px;
+
+      background:
+        rgba(15,30,20,.8);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        21px;
     }
 
-    .trust {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
+    .security-box h3 {
+      margin:
+        0 0 18px;
     }
 
-    .trust-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
+    .security-list {
+      list-style:
+        none;
+
+      padding:
+        0;
+
+      margin:
+        0;
+
+      display:
+        grid;
+
+      gap:
+        13px;
     }
 
-    .trust-points {
-      list-style: none;
-      padding: 0;
-      margin: 18px 0 0;
-      display: grid;
-      gap: 12px;
+    .security-list li {
+      display:
+        flex;
+
+      gap:
+        11px;
+
+      color:
+        #dbffe5;
+
+      line-height:
+        1.55;
     }
 
-    .trust-points li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      color: #dfffe8;
-      line-height: 1.65;
+    .yes {
+      color:
+        #66ff99;
+
+      font-weight:
+        bold;
     }
 
-    .trust-points span {
-      color: #7affaa;
-      font-weight: 900;
-      font-size: 1rem;
-      line-height: 1.2;
-      margin-top: 1px;
+    .no {
+      color:
+        #ff7979;
+
+      font-weight:
+        bold;
     }
+
+    /* GALLERY */
 
     .gallery {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(12,1fr);
+
+      gap:
+        18px;
+
+      margin-top:
+        30px;
     }
 
-    .shot {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
+    .screenshot {
+      overflow:
+        hidden;
+
+      border-radius:
+        21px;
+
+      border:
+        1px solid
+        var(--border);
+
+      background:
+        #0c1710;
+
+      box-shadow:
+        var(--shadow);
     }
 
-    .shot.large {
-      grid-column: span 7;
+    .screenshot img {
+      width:
+        100%;
+
+      height:
+        auto;
     }
 
-    .shot.medium {
-      grid-column: span 5;
+    .screen-large {
+      grid-column:
+        span 7;
     }
 
-    .shot.small {
-      grid-column: span 4;
+    .screen-medium {
+      grid-column:
+        span 5;
     }
 
-    .shot img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: #09120c;
+    .screen-small {
+      grid-column:
+        span 4;
     }
 
-    .shot-caption {
-      padding: 14px 16px 16px;
+    .caption {
+      padding:
+        15px 17px 18px;
     }
 
-    .shot-caption strong {
-      display: block;
-      margin-bottom: 6px;
+    .caption strong {
+      display:
+        block;
+
+      margin-bottom:
+        5px;
     }
 
-    .shot-caption p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.96rem;
+    .caption p {
+      margin:
+        0;
+
+      color:
+        var(--muted);
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
     }
+
+    /* FAQ */
 
     .faq {
-      margin-top: 24px;
-      display: grid;
-      gap: 14px;
+      display:
+        grid;
+
+      gap:
+        12px;
+
+      margin-top:
+        27px;
     }
 
     details {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px 20px;
+      background:
+        rgba(15,30,20,.8);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        17px;
+
+      padding:
+        18px 20px;
     }
 
     summary {
-      cursor: pointer;
-      font-weight: 700;
-      list-style: none;
-    }
+      cursor:
+        pointer;
 
-    summary::-webkit-details-marker {
-      display: none;
+      font-weight:
+        800;
     }
 
     details p {
-      margin: 12px 0 0;
-      color: var(--muted);
-      line-height: 1.7;
+      margin:
+        12px 0 0;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.7;
     }
 
-    .cta-box {
-      margin-top: 24px;
+    /* CTA */
+
+    .cta {
+      margin-top:
+        30px;
+
+      border-radius:
+        26px;
+
+      border:
+        1px solid
+        var(--border);
+
+      padding:
+        30px;
+
       background:
-        radial-gradient(circle at top right, rgba(99, 255, 153, 0.16), transparent 24%),
-        linear-gradient(180deg, rgba(18, 35, 24, 0.94), rgba(10, 19, 13, 0.96));
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+        radial-gradient(
+          circle at right,
+          rgba(57,216,109,.16),
+          transparent 30%
+        ),
+        #0d1d13;
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        22px;
     }
 
-    .cta-box h3 {
-      margin: 0 0 10px;
-      font-size: 1.7rem;
+    .cta h3 {
+      font-size:
+        27px;
+
+      margin:
+        0 0 9px;
     }
 
-    .cta-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 760px;
+    .cta p {
+      margin:
+        0;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.7;
     }
 
-    .footer {
-      padding: 36px 0 56px;
-      color: var(--muted);
-      font-size: 0.96rem;
+    /* FOOTER */
+
+    footer {
+      margin-top:
+        50px;
+
+      padding:
+        30px 0 50px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.06);
+
+      color:
+        var(--muted);
     }
 
-    .footer-line {
-      border-top: 1px solid rgba(255,255,255,0.07);
-      padding-top: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+    .footer-content {
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        15px;
     }
 
-    .footer-note {
-      max-width: 760px;
-      line-height: 1.7;
-    }
+    /* MOBILE */
 
-    @media (max-width: 1050px) {
-      .hero-grid,
-      .trust,
-      .channels-wrap {
-        grid-template-columns: 1fr;
+    @media (
+      max-width: 950px
+    ) {
+
+      .hero-grid {
+        grid-template-columns:
+          1fr;
       }
 
-      .cards,
-      .steps {
-        grid-template-columns: 1fr 1fr;
+      .features,
+      .steps,
+      .channels {
+        grid-template-columns:
+          1fr 1fr;
       }
 
-      .shot.large,
-      .shot.medium,
-      .shot.small {
-        grid-column: span 6;
+      .screen-large,
+      .screen-medium,
+      .screen-small {
+        grid-column:
+          span 6;
       }
+
     }
 
-    @media (max-width: 720px) {
-      .nav {
-        padding: 12px 0;
-      }
+    @media (
+      max-width: 650px
+    ) {
 
-      .nav-links {
-        display: none;
+      nav {
+        display:
+          none;
       }
 
       .hero {
-        padding-top: 48px;
+        padding-top:
+          48px;
       }
 
-      .cards,
-      .steps {
-        grid-template-columns: 1fr;
+      .features,
+      .steps,
+      .channels,
+      .security {
+        grid-template-columns:
+          1fr;
       }
 
-      .shot.large,
-      .shot.medium,
-      .shot.small {
-        grid-column: span 12;
+      .screen-large,
+      .screen-medium,
+      .screen-small {
+        grid-column:
+          span 12;
       }
 
-      .hero h1 {
-        letter-spacing: -0.5px;
+      h1 {
+        letter-spacing:
+          -1px;
       }
 
-      .cta-box {
-        padding: 22px;
-      }
     }
+
   </style>
 </head>
+
+
 <body>
 
-  <header class="topbar">
-    <div class="container nav">
-      <div class="brand">
-        <div class="brand-logo">⚽</div>
-        <div class="brand-text">
-          <strong>FIRIKIK TV</strong>
-          <span>Discord içinde canlı TV deneyimi</span>
-        </div>
+
+<header>
+
+  <div class="container navbar">
+
+    <a class="logo" href="#">
+
+      <div class="logo-icon">
+        📡
       </div>
 
-      <nav class="nav-links">
-        <a href="#ozellikler">Özellikler</a>
-        <a href="#kanallar">Kanallar</a>
-        <a href="#guven">Güven</a>
-        <a href="#goruntuler">Görüntüler</a>
-        <a href="#sss">SSS</a>
-      </nav>
+      <div class="logo-text">
+        <strong>FIRIKIK TV</strong>
+        <span>Discord Canlı TV Botu</span>
+      </div>
+
+    </a>
+
+
+    <nav>
+
+      <a href="#ozellikler">
+        Özellikler
+      </a>
+
+      <a href="#kanallar">
+        Kanallar
+      </a>
+
+      <a href="#guvenlik">
+        Güvenlik
+      </a>
+
+      <a href="#goruntuler">
+        Görüntüler
+      </a>
+
+      <a href="#sss">
+        SSS
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<main>
+
+
+<section class="hero">
+
+  <div class="container hero-grid">
+
+
+    <div>
+
+      <div class="mini-badge">
+        🟢 Discord Activity ile canlı yayın
+      </div>
+
+
+      <h1>
+
+        Discord'dan çıkmadan
+
+        <span class="highlight">
+          canlı TV izle.
+        </span>
+
+      </h1>
+
+
+      <p>
+
+        <strong>FIRIKIK TV</strong>,
+        Discord sunucularında canlı TV kanallarını
+        kolayca açmanı sağlayan bir bottur.
+
+        Bir ses kanalına gir,
+        <strong>/kanallar</strong> komutunu kullan,
+        kanalını seç ve Activity'yi başlat.
+
+      </p>
+
+
+      <div class="buttons">
+
+        <a
+          href="#goruntuler"
+          class="btn btn-green"
+        >
+          📸 Nasıl göründüğüne bak
+        </a>
+
+
+        <a
+          href="#guvenlik"
+          class="btn btn-dark"
+        >
+          🛡️ Güvenli mi?
+        </a>
+
+      </div>
+
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">🟢 Hızlı • Pratik • Discord Uyumlu</div>
 
-          <h1>
-            Discord sunucunda
-            <span class="hero-highlight">canlı TV açmanın</span>
-            en pratik yolu.
-          </h1>
+
+    <div class="hero-card">
+
+      <div class="hero-top">
+
+        <span class="tag">
+          ⚡ /kanallar
+        </span>
+
+        <span class="tag">
+          🎮 Discord Activity
+        </span>
+
+      </div>
+
+
+      <!--
+        frikik 2.png =
+        botun ana kanal ekranı
+      -->
+
+      <img
+        src="frikik%202.png"
+        alt="FIRIKIK TV kanal menüsü"
+      >
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<section id="ozellikler">
+
+  <div class="container">
+
+
+    <h2 class="section-title">
+      FIRIKIK TV nedir?
+    </h2>
+
+
+    <p class="section-desc">
+
+      FIRIKIK TV,
+      Discord içinde kanal seçimini ve
+      canlı yayın Activity'lerini başlatmayı
+      kolaylaştırmak için hazırlanmıştır.
+
+      Kullanıcıların harici bir uygulamada
+      kanal araması yerine basit bir Discord
+      menüsü üzerinden yayına ulaşmasını sağlar.
+
+    </p>
+
+
+
+    <div class="features">
+
+
+      <article class="feature">
+
+        <div class="feature-icon">
+          📺
+        </div>
+
+        <h3>
+          Canlı TV
+        </h3>
+
+        <p>
+          Desteklenen TV kanallarını
+          Discord içindeki Activity ekranından
+          görüntüleyebilirsin.
+        </p>
+
+      </article>
+
+
+
+      <article class="feature">
+
+        <div class="feature-icon">
+          ⚡
+        </div>
+
+        <h3>
+          Basit kullanım
+        </h3>
+
+        <p>
+          Karmaşık komutlar yok.
+          /kanallar komutunu kullan,
+          kanalı seç ve başlat.
+        </p>
+
+      </article>
+
+
+
+      <article class="feature">
+
+        <div class="feature-icon">
+          🎮
+        </div>
+
+        <h3>
+          Discord'a entegre
+        </h3>
+
+        <p>
+          Bot,
+          Discord'un ses kanalı ve
+          Activity sistemleriyle birlikte
+          çalışacak şekilde tasarlanmıştır.
+        </p>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<section>
+
+  <div class="container">
+
+    <h2 class="section-title">
+      Nasıl kullanılır?
+    </h2>
+
+    <p class="section-desc">
+      Üç basit adım.
+    </p>
+
+
+    <div class="steps">
+
+
+      <article class="step">
+
+        <div class="number">
+          1
+        </div>
+
+        <h3>
+          Ses kanalına gir
+        </h3>
+
+        <p>
+          FIRIKIK TV Activity'sini
+          açmadan önce Discord'da bir
+          ses kanalına katıl.
+        </p>
+
+      </article>
+
+
+
+      <article class="step">
+
+        <div class="number">
+          2
+        </div>
+
+        <h3>
+          /kanallar yaz
+        </h3>
+
+        <p>
+          Bot sana desteklenen
+          kanalların bulunduğu
+          seçim menüsünü gösterecek.
+        </p>
+
+      </article>
+
+
+
+      <article class="step">
+
+        <div class="number">
+          3
+        </div>
+
+        <h3>
+          Yayını aç
+        </h3>
+
+        <p>
+          Kanalını seç,
+          Yayını Başlat butonuna bas
+          ve Activity'yi aç.
+        </p>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<section id="kanallar">
+
+  <div class="container">
+
+
+    <h2 class="section-title">
+      Şu an desteklenen kanallar
+    </h2>
+
+
+    <p class="section-desc">
+      Kanal listesi geliştirmelerle birlikte
+      zaman içerisinde genişleyebilir.
+    </p>
+
+
+    <div class="channels">
+
+
+      <article class="channel">
+
+        <div class="channel-icon">
+          📺
+        </div>
+
+        <h3>
+          TRT 1
+        </h3>
+
+        <p>
+          Canlı yayın
+        </p>
+
+      </article>
+
+
+
+      <article class="channel">
+
+        <div class="channel-icon">
+          ⚽
+        </div>
+
+        <h3>
+          BEIN SPORTS 1 HD
+        </h3>
+
+        <p>
+          Spor yayını
+        </p>
+
+      </article>
+
+
+
+      <article class="channel">
+
+        <div class="channel-icon">
+          ⚽
+        </div>
+
+        <h3>
+          BEIN SPORTS 2 FHD
+        </h3>
+
+        <p>
+          Spor yayını
+        </p>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<section id="guvenlik">
+
+  <div class="container">
+
+
+    <h2 class="section-title">
+      Peki güvenli mi?
+    </h2>
+
+
+    <p class="section-desc">
+
+      FIRIKIK TV'nin amacı kullanıcıyı
+      başka yerlere yönlendirmek değil,
+      Discord içindeki Activity kullanımını
+      kolaylaştırmaktır.
+
+      Botun ne yaptığını açıkça bilmeni istiyoruz.
+
+    </p>
+
+
+
+    <div class="security">
+
+
+      <div class="security-box">
+
+        <h3>
+          ✅ Bot ne yapar?
+        </h3>
+
+
+        <ul class="security-list">
+
+          <li>
+            <span class="yes">✔</span>
+            Kanal seçim menüsü gösterir.
+          </li>
+
+          <li>
+            <span class="yes">✔</span>
+            Seçilen Discord Activity'sini
+            başlatmak için davet oluşturur.
+          </li>
+
+          <li>
+            <span class="yes">✔</span>
+            Yayını ses kanalında
+            açmanı kolaylaştırır.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+      <div class="security-box">
+
+        <h3>
+          ❌ Bot ne yapmaz?
+        </h3>
+
+
+        <ul class="security-list">
+
+          <li>
+            <span class="no">✖</span>
+            Discord şifreni istemez.
+          </li>
+
+          <li>
+            <span class="no">✖</span>
+            Kullanıcıdan kişisel bilgi istemez.
+          </li>
+
+          <li>
+            <span class="no">✖</span>
+            Kullanıcı hesabının tokenini istemez.
+          </li>
+
+        </ul>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<section id="goruntuler">
+
+  <div class="container">
+
+
+    <h2 class="section-title">
+      Gerçek kullanım görüntüleri
+    </h2>
+
+
+    <p class="section-desc">
+
+      Aşağıdaki görüntüler
+      FIRIKIK TV'nin Discord içindeki
+      gerçek kullanımından alınmıştır.
+
+    </p>
+
+
+
+    <div class="gallery">
+
+
+      <!-- frikik 2 -->
+
+      <article class="screenshot screen-large">
+
+        <img
+          src="frikik%202.png"
+          alt="FIRIKIK TV ana kanal menüsü"
+        >
+
+        <div class="caption">
+
+          <strong>
+            📡 Kanal menüsü
+          </strong>
 
           <p>
-            <strong>FIRIKIK TV</strong>, Discord içindeki ses kanalında Activity olarak
-            canlı TV kanallarını başlatmanı sağlayan bir bottur.
-            Kanal seç, butona bas, yayını aç. Bu kadar basit.
+            /kanallar komutu ile
+            desteklenen kanallar görüntülenir.
           </p>
 
-          <div class="hero-actions">
-            <a href="#goruntuler" class="btn btn-primary">📸 Ekran görüntülerini gör</a>
-            <a href="#guven" class="btn btn-secondary">🛡️ Güvenli mi?</a>
-          </div>
         </div>
 
-        <div class="hero-card">
-          <div class="hero-card-head">
-            <div class="badge">📺 Activity tabanlı sistem</div>
-            <div class="badge">⚡ Slash komut desteği</div>
-          </div>
+      </article>
 
-          <div class="hero-preview">
-            <img src="images/ana-menu.png" alt="FIRIKIK TV ana menü ekran görüntüsü">
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="ozellikler">
-      <div class="container">
-        <h2 class="section-title">Neden FIRIKIK TV?</h2>
-        <p class="section-subtitle">
-          Bot, Discord içinde kanal seçimini kolaylaştırır ve ilgili Activity’yi tek tuşla başlatmana yardımcı olur.
-          Karmaşık işlem yok, gereksiz uğraş yok.
-        </p>
 
-        <div class="cards">
-          <div class="card">
-            <div class="card-icon">⚡</div>
-            <h3>Hızlı kullanım</h3>
-            <p>
-              <code>/kanallar</code> komutunu kullan, kanalını seç ve birkaç tıkla yayını aç.
-              Basit akış, temiz görünüm.
-            </p>
-          </div>
+      <!-- frikik 1 -->
 
-          <div class="card">
-            <div class="card-icon">🎮</div>
-            <h3>Discord Activity uyumu</h3>
-            <p>
-              Yayın deneyimi doğrudan Discord Activity mantığına göre çalışır.
-              Kullanıcı için doğal ve tanıdık bir kullanım sunar.
-            </p>
-          </div>
+      <article class="screenshot screen-medium">
 
-          <div class="card">
-            <div class="card-icon">🖥️</div>
-            <h3>Şık kontrol arayüzü</h3>
-            <p>
-              Kanal menüsü, başlatma ekranı ve yönlendirme butonları ile
-              sade ama güven veren bir kullanım deneyimi sunar.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <img
+          src="frikik%201.png"
+          alt="FIRIKIK TV slash komutu"
+        >
 
-    <section>
-      <div class="container">
-        <h2 class="section-title">Nasıl çalışır?</h2>
-        <p class="section-subtitle">
-          FIRIKIK TV’nin mantığı çok basit. Kullanıcıyı teknik detaylarla uğraştırmaz.
-        </p>
+        <div class="caption">
 
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Komutu kullan</h3>
-            <p>
-              Sunucunda <strong>/kanallar</strong> komutunu kullan.
-              Bot sana desteklenen kanalları menü halinde gösterir.
-            </p>
-          </div>
+          <strong>
+            ⌨️ /kanallar komutu
+          </strong>
 
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Kanalı seç</h3>
-            <p>
-              İzlemek istediğin kanalı seçersin.
-              Bot seçtiğin kanal için Activity başlatma ekranını hazırlar.
-            </p>
-          </div>
+          <p>
+            Discord'un slash komut sistemi
+            üzerinden menüyü kolayca açabilirsin.
+          </p>
 
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Yayını aç</h3>
-            <p>
-              <strong>Yayını Aç</strong> butonuna tıklarsın.
-              Activity açılır ve yayın Discord içinde izlenebilir hale gelir.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="kanallar">
-      <div class="container">
-        <h2 class="section-title">Desteklenen kanallar</h2>
-        <p class="section-subtitle">
-          Şu anda bot üzerinde aktif olarak kullanılabilen örnek kanallar aşağıdaki gibidir.
-        </p>
-
-        <div class="channels-wrap">
-          <div class="channel-card">
-            <div class="channel-top">
-              <div class="channel-icon">📺</div>
-              <div>
-                <h3>Genel TV</h3>
-                <p>Temel canlı yayın kanalları</p>
-              </div>
-            </div>
-
-            <ul class="channel-list">
-              <li>📺 TRT 1</li>
-            </ul>
-          </div>
-
-          <div class="channel-card">
-            <div class="channel-top">
-              <div class="channel-icon">⚽</div>
-              <div>
-                <h3>Spor Kanalları</h3>
-                <p>Maç ve spor yayınları için</p>
-              </div>
-            </div>
-
-            <ul class="channel-list">
-              <li>⚽ BEIN SPORTS 1 HD</li>
-              <li>⚽ BEIN SPORTS 2 FHD</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="guven">
-      <div class="container">
-        <h2 class="section-title">Güvenli mi?</h2>
-        <p class="section-subtitle">
-          Evet — FIRIKIK TV’nin ne yaptığını açıkça anlatmak önemli.
-          İnsanların çekinmemesi için mantığı net olmalı.
-        </p>
-
-        <div class="trust">
-          <div class="trust-box">
-            <h3>FIRIKIK TV ne yapar?</h3>
-            <ul class="trust-points">
-              <li><span>✔</span><div>Discord içindeki canlı TV Activity’lerini başlatmayı kolaylaştırır.</div></li>
-              <li><span>✔</span><div>Kanal seçimi, menü gösterimi ve kullanıcı yönlendirmesi yapar.</div></li>
-              <li><span>✔</span><div>Sunucu içinde basit ve şık bir TV menüsü sunar.</div></li>
-            </ul>
-          </div>
-
-          <div class="trust-box">
-            <h3>FIRIKIK TV ne yapmaz?</h3>
-            <ul class="trust-points">
-              <li><span>✖</span><div>Discord şifreni istemez.</div></li>
-              <li><span>✖</span><div>Kişisel bilgini toplamaz.</div></li>
-              <li><span>✖</span><div>Sunucunda gizli işlem yapmaz.</div></li>
-              <li><span>✖</span><div>Kullanıcıyı karmaşık ayarlarla uğraştırmaz.</div></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="goruntuler">
-      <div class="container">
-        <h2 class="section-title">Botun görünümü</h2>
-        <p class="section-subtitle">
-          Aşağıda botun Discord içindeki gerçek kullanım akışından alınmış ekran görüntüleri yer alıyor.
-        </p>
-
-        <div class="gallery">
-          <article class="shot large">
-            <img src="images/ana-menu.png" alt="FIRIKIK TV ana menü">
-            <div class="shot-caption">
-              <strong>Ana kanal menüsü</strong>
-              <p>Kullanıcı <code>/kanallar</code> komutu ile desteklenen kanalları tek ekranda görür.</p>
-            </div>
-          </article>
-
-          <article class="shot medium">
-            <img src="images/kanal-secim.png" alt="Kanal seçim listesi">
-            <div class="shot-caption">
-              <strong>Kanal seçim listesi</strong>
-              <p>TRT 1, BEIN SPORTS 1 HD ve BEIN SPORTS 2 FHD gibi kanallar menüden seçilebilir.</p>
-            </div>
-          </article>
-
-          <article class="shot small">
-            <img src="images/kanal-detay.png" alt="Kanal detay ekranı">
-            <div class="shot-caption">
-              <strong>Kanal detay ekranı</strong>
-              <p>Seçilen kanal için kısa açıklama ve başlatma adımları gösterilir.</p>
-            </div>
-          </article>
-
-          <article class="shot small">
-            <img src="images/yayin-hazir.png" alt="Yayın hazır ekranı">
-            <div class="shot-caption">
-              <strong>Yayın hazır ekranı</strong>
-              <p>Bot, Activity linkini oluşturarak kullanıcıya yayını başlatması için sunar.</p>
-            </div>
-          </article>
-
-          <article class="shot large">
-            <img src="images/yayin-ekrani.png" alt="Canlı yayın ekranı">
-            <div class="shot-caption">
-              <strong>Discord içinde canlı yayın</strong>
-              <p>Yayın açıldığında kullanıcı Discord içindeki Activity alanında içeriği görüntüler.</p>
-            </div>
-          </article>
-
-          <article class="shot small">
-            <img src="images/ses-baglantisi.png" alt="Ses bağlantısı kuruldu ekranı">
-            <div class="shot-caption">
-              <strong>Ses kanalına entegre</strong>
-              <p>Activity, ses kanalı deneyimi ile birlikte doğal şekilde çalışır.</p>
-            </div>
-          </article>
-
-          <article class="shot small">
-            <img src="images/komut-kayit.png" alt="Slash komut görünümü">
-            <div class="shot-caption">
-              <strong>Slash komut desteği</strong>
-              <p>Botun komutları Discord’un modern komut sistemine uyumlu biçimde görünür.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="sss">
-      <div class="container">
-        <h2 class="section-title">Sık sorulan sorular</h2>
-        <p class="section-subtitle">
-          Kullanıcıların en çok merak edeceği noktaları baştan netleştirmek güven verir.
-        </p>
-
-        <div class="faq">
-          <details open>
-            <summary>FIRIKIK TV tam olarak ne işe yarıyor?</summary>
-            <p>
-              Discord sunucusunda canlı TV Activity’lerini açmayı kolaylaştırır.
-              Kullanıcı kanal seçer, bot Activity başlatma adımını hazırlar.
-            </p>
-          </details>
-
-          <details>
-            <summary>Bot güvenli mi?</summary>
-            <p>
-              Bot senden şifre istemez, kişisel bilgi talep etmez. Temel amacı kanal seçimi
-              ve Activity başlatma akışını pratik hale getirmektir.
-            </p>
-          </details>
-
-          <details>
-            <summary>Nasıl kullanırım?</summary>
-            <p>
-              Bir ses kanalına gir, <code>/kanallar</code> komutunu kullan,
-              izlemek istediğin kanalı seç ve gelen butondan yayını aç.
-            </p>
-          </details>
-
-          <details>
-            <summary>Botta hangi kanallar var?</summary>
-            <p>
-              Şu an örnek olarak TRT 1, BEIN SPORTS 1 HD ve BEIN SPORTS 2 FHD destekleniyor.
-              İleride yeni kanallar da eklenebilir.
-            </p>
-          </details>
         </div>
 
-        <div class="cta-box">
-          <div>
-            <h3>FIRIKIK TV’yi keşfet</h3>
-            <p>
-              Sunucunda düzenli, hızlı ve pratik bir canlı TV deneyimi istiyorsan
-              FIRIKIK TV bunun için tasarlandı.
-            </p>
-          </div>
+      </article>
 
-          <div class="hero-actions" style="margin-top:0;">
-            <a href="#" class="btn btn-primary">🤖 Botu ekle</a>
-            <a href="https://github.com/RaykimOfficial/FrikikTV" class="btn btn-secondary" target="_blank">📁 GitHub</a>
-          </div>
+
+
+      <!-- frikik 3 -->
+
+      <article class="screenshot screen-small">
+
+        <img
+          src="frikik%203.png"
+          alt="FIRIKIK TV kanal seçim menüsü"
+        >
+
+        <div class="caption">
+
+          <strong>
+            📺 Kanal seçimi
+          </strong>
+
+          <p>
+            İzlemek istediğin kanalı
+            açılır listeden seç.
+          </p>
+
         </div>
-      </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container footer-line">
-      <div>
-        <strong>FIRIKIK TV</strong>
-      </div>
+      </article>
 
-      <div class="footer-note">
-        Discord içinde canlı TV Activity deneyimini daha pratik hale getirmek için hazırlanmış tanıtım sayfası.
-      </div>
+
+
+      <!-- frikik 4 -->
+
+      <article class="screenshot screen-small">
+
+        <img
+          src="frikik%204.png"
+          alt="FIRIKIK TV kanal detay ekranı"
+        >
+
+        <div class="caption">
+
+          <strong>
+            ▶️ Yayını Başlat
+          </strong>
+
+          <p>
+            Kanal seçildikten sonra
+            bot nasıl açılacağını gösterir.
+          </p>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- frikik 5 -->
+
+      <article class="screenshot screen-small">
+
+        <img
+          src="frikik%205.png"
+          alt="FIRIKIK TV yayın hazır ekranı"
+        >
+
+        <div class="caption">
+
+          <strong>
+            ✅ Yayın hazır
+          </strong>
+
+          <p>
+            Activity hazırlandıktan sonra
+            Yayını Aç butonu görünür.
+          </p>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- frikik 6 -->
+
+      <article class="screenshot screen-large">
+
+        <img
+          src="frikik%206.png"
+          alt="FIRIKIK TV canlı yayın görüntüsü"
+        >
+
+        <div class="caption">
+
+          <strong>
+            ⚽ Canlı yayın
+          </strong>
+
+          <p>
+            Yayın,
+            Discord Activity ekranı içinde
+            görüntülenebilir.
+          </p>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- frikik 7 -->
+
+      <article class="screenshot screen-medium">
+
+        <img
+          src="frikik%207.png"
+          alt="FIRIKIK TV Discord Activity"
+        >
+
+        <div class="caption">
+
+          <strong>
+            🔊 Ses kanalı Activity'si
+          </strong>
+
+          <p>
+            Activity,
+            Discord ses kanalı ile birlikte
+            çalışır.
+          </p>
+
+        </div>
+
+      </article>
+
+
     </div>
-  </footer>
+
+  </div>
+
+</section>
+
+
+
+<section id="sss">
+
+  <div class="container">
+
+
+    <h2 class="section-title">
+      Sık sorulan sorular
+    </h2>
+
+
+    <div class="faq">
+
+
+      <details open>
+
+        <summary>
+          FIRIKIK TV ne işe yarıyor?
+        </summary>
+
+        <p>
+          Discord sunucusunda
+          canlı TV Activity'lerini
+          kolayca seçip başlatmanı sağlar.
+        </p>
+
+      </details>
+
+
+
+      <details>
+
+        <summary>
+          Bot şifremi ister mi?
+        </summary>
+
+        <p>
+          Hayır.
+          FIRIKIK TV senden
+          Discord şifresi istemez.
+        </p>
+
+      </details>
+
+
+
+      <details>
+
+        <summary>
+          Botu kullanmak için ne yapmalıyım?
+        </summary>
+
+        <p>
+          Bir ses kanalına gir,
+          /kanallar komutunu kullan,
+          kanalını seç ve
+          Yayını Başlat butonuna bas.
+        </p>
+
+      </details>
+
+
+
+      <details>
+
+        <summary>
+          Hangi kanallar bulunuyor?
+        </summary>
+
+        <p>
+          Şu anda TRT 1,
+          BEIN SPORTS 1 HD ve
+          BEIN SPORTS 2 FHD
+          bot menüsünde bulunuyor.
+        </p>
+
+      </details>
+
+
+    </div>
+
+
+
+    <div class="cta">
+
+      <div>
+
+        <h3>
+          FIRIKIK TV'yi dene 📡
+        </h3>
+
+        <p>
+          Discord'dan çıkmadan
+          kanalını seç ve
+          Activity'yi başlat.
+        </p>
+
+      </div>
+
+
+      <div class="buttons"
+           style="margin-top:0">
+
+
+        <!--
+          Bot davet linkini
+          # yerine yaz
+        -->
+
+        <a
+          href="#"
+          class="btn btn-green"
+        >
+          🤖 Botu Sunucuna Ekle
+        </a>
+
+
+        <a
+          href="https://github.com/RaykimOfficial/FrikikTV"
+          target="_blank"
+          class="btn btn-dark"
+        >
+          📁 GitHub
+        </a>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+</main>
+
+
+
+<footer>
+
+  <div class="container footer-content">
+
+    <div>
+      <strong>
+        FIRIKIK TV
+      </strong>
+    </div>
+
+    <div>
+      Discord içinde pratik
+      canlı TV Activity deneyimi.
+    </div>
+
+  </div>
+
+</footer>
+
 
 </body>
 </html>
