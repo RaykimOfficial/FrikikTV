@@ -15,6 +15,7 @@
     :root {
       --bg: #061009;
       --bg2: #09170e;
+
       --card: #0e1d13;
       --card2: #122419;
 
@@ -77,12 +78,12 @@
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     code {
-      color: #9bffc0;
+      color: var(--green-light);
     }
 
     .container {
@@ -94,81 +95,80 @@
       margin: auto;
     }
 
-    /* HEADER */
+
+    /* =========================================
+       HEADER
+       ========================================= */
 
     header {
       position: sticky;
       top: 0;
       z-index: 100;
 
-      background: rgba(5, 12, 7, 0.76);
+      background: rgba(5, 12, 7, 0.78);
 
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
 
       border-bottom:
         1px solid rgba(255,255,255,.05);
     }
 
     .navbar {
-      min-height: 76px;
+      min-height: 82px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      gap: 20px;
+      gap: 28px;
     }
+
+    /*
+      ARTIK EMOJİ / İKON YOK.
+      FIRIKIK TV yazısı logonun kendisi.
+    */
 
     .logo {
       display: flex;
-      align-items: center;
+      flex-direction: column;
 
-      gap: 13px;
+      justify-content: center;
 
-      font-weight: 900;
+      min-width: max-content;
+
+      line-height: 1;
     }
 
-    .logo-icon {
-      width: 48px;
-      height: 48px;
+    .logo-main {
+      color: #ffffff;
 
-      display: grid;
-      place-items: center;
+      font-size: 25px;
+      font-weight: 950;
 
-      border-radius: 15px;
+      letter-spacing: .7px;
 
-      background:
-        linear-gradient(
-          135deg,
-          var(--green-light),
-          var(--green-dark)
-        );
-
-      color: #021007;
-
-      font-size: 24px;
-
-      box-shadow:
-        0 10px 28px rgba(57,216,109,.22);
+      line-height: 1;
     }
 
-    .logo-text strong {
-      display: block;
-      font-size: 17px;
+    .logo-main span {
+      color: var(--green);
     }
 
-    .logo-text span {
-      display: block;
+    .logo-sub {
+      margin-top: 8px;
 
       color: var(--muted);
 
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 700;
 
-      margin-top: 4px;
+      letter-spacing: .15px;
     }
 
     nav {
       display: flex;
+      align-items: center;
 
       gap: 6px;
     }
@@ -183,7 +183,7 @@
       font-size: 14px;
       font-weight: 700;
 
-      transition: .2s;
+      transition: .2s ease;
     }
 
     nav a:hover {
@@ -193,7 +193,10 @@
       color: white;
     }
 
-    /* HERO */
+
+    /* =========================================
+       HERO
+       ========================================= */
 
     .hero {
       padding:
@@ -225,8 +228,7 @@
       border-radius: 999px;
 
       border:
-        1px solid
-        rgba(57,216,109,.22);
+        1px solid rgba(57,216,109,.22);
 
       background:
         rgba(57,216,109,.09);
@@ -308,14 +310,13 @@
         15px;
 
       border:
-        1px solid
-        transparent;
+        1px solid transparent;
 
       font-weight:
         800;
 
       transition:
-        .2s;
+        .2s ease;
 
       display:
         inline-flex;
@@ -342,13 +343,15 @@
         #021007;
 
       box-shadow:
-        0 14px 30px
-        rgba(57,216,109,.2);
+        0 14px 30px rgba(57,216,109,.2);
     }
 
     .btn-green:hover {
       transform:
         translateY(-2px);
+
+      box-shadow:
+        0 18px 36px rgba(57,216,109,.25);
     }
 
     .btn-dark {
@@ -372,19 +375,20 @@
         rgba(16,32,21,.85);
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       border-radius:
         26px;
 
       box-shadow:
         var(--shadow);
+
+      overflow: hidden;
     }
 
     .hero-card img {
-      width:
-        100%;
+      width: 100%;
+      height: auto;
 
       border-radius:
         18px;
@@ -396,6 +400,8 @@
 
       justify-content:
         space-between;
+
+      align-items: center;
 
       gap:
         10px;
@@ -419,9 +425,15 @@
 
       background:
         rgba(57,216,109,.1);
+
+      border:
+        1px solid rgba(57,216,109,.08);
     }
 
-    /* SECTIONS */
+
+    /* =========================================
+       GENEL BÖLÜMLER
+       ========================================= */
 
     section {
       padding:
@@ -441,8 +453,7 @@
     }
 
     .section-desc {
-      margin:
-        0;
+      margin: 0;
 
       max-width:
         800px;
@@ -457,7 +468,10 @@
         1.75;
     }
 
-    /* FEATURES */
+
+    /* =========================================
+       FEATURES
+       ========================================= */
 
     .features {
       display:
@@ -481,11 +495,22 @@
         rgba(15,30,20,.78);
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       border-radius:
         21px;
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease;
+    }
+
+    .feature:hover {
+      transform:
+        translateY(-3px);
+
+      border-color:
+        rgba(80,230,130,.3);
     }
 
     .feature-icon {
@@ -520,8 +545,7 @@
     }
 
     .feature p {
-      margin:
-        0;
+      margin: 0;
 
       color:
         var(--muted);
@@ -530,7 +554,10 @@
         1.7;
     }
 
-    /* STEPS */
+
+    /* =========================================
+       STEPS
+       ========================================= */
 
     .steps {
       display:
@@ -554,8 +581,7 @@
         rgba(15,30,20,.78);
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       border-radius:
         21px;
@@ -600,8 +626,7 @@
     }
 
     .step p {
-      margin:
-        0;
+      margin: 0;
 
       color:
         var(--muted);
@@ -610,7 +635,10 @@
         1.7;
     }
 
-    /* CHANNELS */
+
+    /* =========================================
+       CHANNELS
+       ========================================= */
 
     .channels {
       display:
@@ -631,14 +659,21 @@
         rgba(15,30,20,.8);
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       border-radius:
         20px;
 
       padding:
         22px;
+
+      transition:
+        transform .2s ease;
+    }
+
+    .channel:hover {
+      transform:
+        translateY(-3px);
     }
 
     .channel-icon {
@@ -655,14 +690,16 @@
     }
 
     .channel p {
-      margin:
-        0;
+      margin: 0;
 
       color:
         var(--muted);
     }
 
-    /* SECURITY */
+
+    /* =========================================
+       SECURITY
+       ========================================= */
 
     .security {
       display:
@@ -686,8 +723,7 @@
         rgba(15,30,20,.8);
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       border-radius:
         21px;
@@ -702,11 +738,8 @@
       list-style:
         none;
 
-      padding:
-        0;
-
-      margin:
-        0;
+      padding: 0;
+      margin: 0;
 
       display:
         grid;
@@ -745,20 +778,31 @@
         bold;
     }
 
-    /* GALLERY */
+
+    /* =========================================
+       GALLERY
+       ========================================= */
 
     .gallery {
       display:
         grid;
 
       grid-template-columns:
-        repeat(12,1fr);
+        repeat(12, 1fr);
 
       gap:
         18px;
 
       margin-top:
         30px;
+
+      /*
+        ÖNEMLİ:
+        Grid kartlarını aynı yüksekliğe zorlamıyoruz.
+        Böylece ince resimlerin altında boş alan oluşmuyor.
+      */
+      align-items:
+        start;
     }
 
     .screenshot {
@@ -769,14 +813,22 @@
         21px;
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       background:
         #0c1710;
 
       box-shadow:
         var(--shadow);
+
+      /*
+        Kart sadece kendi içeriği kadar yüksek.
+      */
+      height:
+        fit-content;
+
+      align-self:
+        start;
     }
 
     .screenshot img {
@@ -785,6 +837,12 @@
 
       height:
         auto;
+
+      object-fit:
+        contain;
+
+      display:
+        block;
     }
 
     .screen-large {
@@ -804,7 +862,7 @@
 
     .caption {
       padding:
-        15px 17px 18px;
+        16px 18px 18px;
     }
 
     .caption strong {
@@ -812,12 +870,14 @@
         block;
 
       margin-bottom:
-        5px;
+        6px;
+
+      font-size:
+        16px;
     }
 
     .caption p {
-      margin:
-        0;
+      margin: 0;
 
       color:
         var(--muted);
@@ -829,7 +889,10 @@
         1.6;
     }
 
-    /* FAQ */
+
+    /* =========================================
+       FAQ
+       ========================================= */
 
     .faq {
       display:
@@ -847,8 +910,7 @@
         rgba(15,30,20,.8);
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       border-radius:
         17px;
@@ -876,7 +938,10 @@
         1.7;
     }
 
-    /* CTA */
+
+    /* =========================================
+       CTA
+       ========================================= */
 
     .cta {
       margin-top:
@@ -886,8 +951,7 @@
         26px;
 
       border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
       padding:
         30px;
@@ -925,8 +989,7 @@
     }
 
     .cta p {
-      margin:
-        0;
+      margin: 0;
 
       color:
         var(--muted);
@@ -935,7 +998,10 @@
         1.7;
     }
 
-    /* FOOTER */
+
+    /* =========================================
+       FOOTER
+       ========================================= */
 
     footer {
       margin-top:
@@ -945,8 +1011,7 @@
         30px 0 50px;
 
       border-top:
-        1px solid
-        rgba(255,255,255,.06);
+        1px solid rgba(255,255,255,.06);
 
       color:
         var(--muted);
@@ -959,6 +1024,9 @@
       justify-content:
         space-between;
 
+      align-items:
+        center;
+
       flex-wrap:
         wrap;
 
@@ -966,7 +1034,26 @@
         15px;
     }
 
-    /* MOBILE */
+    .footer-brand {
+      color:
+        white;
+
+      font-weight:
+        900;
+
+      letter-spacing:
+        .5px;
+    }
+
+    .footer-brand span {
+      color:
+        var(--green);
+    }
+
+
+    /* =========================================
+       TABLET
+       ========================================= */
 
     @media (
       max-width: 950px
@@ -993,9 +1080,29 @@
 
     }
 
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
     @media (
       max-width: 650px
     ) {
+
+      .navbar {
+        min-height:
+          74px;
+      }
+
+      .logo-main {
+        font-size:
+          21px;
+      }
+
+      .logo-sub {
+        font-size:
+          11px;
+      }
 
       nav {
         display:
@@ -1027,6 +1134,16 @@
           -1px;
       }
 
+      .hero p {
+        font-size:
+          16px;
+      }
+
+      .cta {
+        padding:
+          23px;
+      }
+
     }
 
   </style>
@@ -1036,19 +1153,31 @@
 <body>
 
 
+<!-- =========================================
+     HEADER
+     ========================================= -->
+
 <header>
 
   <div class="container navbar">
 
-    <a class="logo" href="#">
 
-      <div class="logo-icon">
-        📡
+    <!--
+      Emoji logo kaldırıldı.
+      FIRIKIK TV yazısının kendisi logo.
+    -->
+
+    <a
+      class="logo"
+      href="#"
+    >
+
+      <div class="logo-main">
+        FIRIKIK <span>TV</span>
       </div>
 
-      <div class="logo-text">
-        <strong>FIRIKIK TV</strong>
-        <span>Discord Canlı TV Botu</span>
+      <div class="logo-sub">
+        Discord Canlı TV Botu
       </div>
 
     </a>
@@ -1086,6 +1215,10 @@
 
 <main>
 
+
+<!-- =========================================
+     HERO
+     ========================================= -->
 
 <section class="hero">
 
@@ -1175,6 +1308,10 @@
 
 
 
+<!-- =========================================
+     NEDİR?
+     ========================================= -->
+
 <section id="ozellikler">
 
   <div class="container">
@@ -1235,7 +1372,7 @@
 
         <p>
           Karmaşık komutlar yok.
-          /kanallar komutunu kullan,
+          <strong>/kanallar</strong> komutunu kullan,
           kanalı seç ve başlat.
         </p>
 
@@ -1271,6 +1408,10 @@
 
 
 
+<!-- =========================================
+     NASIL KULLANILIR?
+     ========================================= -->
+
 <section>
 
   <div class="container">
@@ -1280,7 +1421,7 @@
     </h2>
 
     <p class="section-desc">
-      Üç basit adım.
+      Sadece üç basit adım.
     </p>
 
 
@@ -1353,6 +1494,10 @@
 </section>
 
 
+
+<!-- =========================================
+     KANALLAR
+     ========================================= -->
 
 <section id="kanallar">
 
@@ -1434,6 +1579,10 @@
 
 
 
+<!-- =========================================
+     GÜVENLİK
+     ========================================= -->
+
 <section id="guvenlik">
 
   <div class="container">
@@ -1471,19 +1620,28 @@
 
           <li>
             <span class="yes">✔</span>
-            Kanal seçim menüsü gösterir.
+
+            <span>
+              Kanal seçim menüsü gösterir.
+            </span>
           </li>
 
           <li>
             <span class="yes">✔</span>
-            Seçilen Discord Activity'sini
-            başlatmak için davet oluşturur.
+
+            <span>
+              Seçilen Discord Activity'sini
+              başlatmak için davet oluşturur.
+            </span>
           </li>
 
           <li>
             <span class="yes">✔</span>
-            Yayını ses kanalında
-            açmanı kolaylaştırır.
+
+            <span>
+              Yayını ses kanalında
+              açmanı kolaylaştırır.
+            </span>
           </li>
 
         </ul>
@@ -1503,17 +1661,26 @@
 
           <li>
             <span class="no">✖</span>
-            Discord şifreni istemez.
+
+            <span>
+              Discord şifreni istemez.
+            </span>
           </li>
 
           <li>
             <span class="no">✖</span>
-            Kullanıcıdan kişisel bilgi istemez.
+
+            <span>
+              Kullanıcıdan kişisel bilgi istemez.
+            </span>
           </li>
 
           <li>
             <span class="no">✖</span>
-            Kullanıcı hesabının tokenini istemez.
+
+            <span>
+              Kullanıcı hesabının tokenini istemez.
+            </span>
           </li>
 
         </ul>
@@ -1528,6 +1695,10 @@
 </section>
 
 
+
+<!-- =========================================
+     EKRAN GÖRÜNTÜLERİ
+     ========================================= -->
 
 <section id="goruntuler">
 
@@ -1551,6 +1722,8 @@
 
     <div class="gallery">
 
+
+      <!-- FRIKIK 2 -->
 
       <article class="screenshot screen-large">
 
@@ -1576,6 +1749,8 @@
 
 
 
+      <!-- FRIKIK 1 -->
+
       <article class="screenshot screen-medium">
 
         <img
@@ -1599,6 +1774,8 @@
       </article>
 
 
+
+      <!-- FRIKIK 3 -->
 
       <article class="screenshot screen-small">
 
@@ -1624,6 +1801,8 @@
 
 
 
+      <!-- FRIKIK 4 -->
+
       <article class="screenshot screen-small">
 
         <img
@@ -1647,6 +1826,8 @@
       </article>
 
 
+
+      <!-- FRIKIK 5 -->
 
       <article class="screenshot screen-small">
 
@@ -1672,6 +1853,8 @@
 
 
 
+      <!-- FRIKIK 6 -->
+
       <article class="screenshot screen-large">
 
         <img
@@ -1696,6 +1879,8 @@
       </article>
 
 
+
+      <!-- FRIKIK 7 -->
 
       <article class="screenshot screen-medium">
 
@@ -1728,6 +1913,10 @@
 </section>
 
 
+
+<!-- =========================================
+     SSS
+     ========================================= -->
 
 <section id="sss">
 
@@ -1828,9 +2017,15 @@
       </div>
 
 
-      <div class="buttons"
-           style="margin-top:0">
+      <div
+        class="buttons"
+        style="margin-top:0"
+      >
 
+        <!--
+          BURADAKİ # YERİNE
+          BOT DAVET LİNKİNİ KOY.
+        -->
 
         <a
           href="#"
@@ -1843,6 +2038,7 @@
         <a
           href="https://github.com/RaykimOfficial/FrikikTV"
           target="_blank"
+          rel="noopener noreferrer"
           class="btn btn-dark"
         >
           📁 GitHub
@@ -1864,19 +2060,20 @@
 
 
 
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+
 <footer>
 
   <div class="container footer-content">
 
-    <div>
-      <strong>
-        FIRIKIK TV
-      </strong>
+    <div class="footer-brand">
+      FIRIKIK <span>TV</span>
     </div>
 
     <div>
-      Discord içinde pratik
-      canlı TV Activity deneyimi.
+      Discord içinde pratik canlı TV Activity deneyimi.
     </div>
 
   </div>
